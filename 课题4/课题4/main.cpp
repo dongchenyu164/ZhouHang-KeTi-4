@@ -4,7 +4,7 @@
 
 u8 Play[4][4] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
 ValideDirection VD[16] = { SD,ASD,ASD,AS,WSD,WASD,WASD,WAS,WSD,WASD,WASD,WAS,WD,WAD,WAD,WA };
-std::queue<Node*> Finding;
+std::priority_queue<Node*> Finding;
 
 bool Diff[4][4];
 MovingDirection Dir_Initial[_DISTURB_STEP_];
