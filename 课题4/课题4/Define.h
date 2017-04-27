@@ -1,7 +1,7 @@
 #pragma once
 #define _WORLDSIZE_Y_ 4
 #define _WORLDSIZE_X_ 4
-#define _DISTURB_STEP_ 50
+#define _DISTURB_STEP_ 14
 
 #include "Tree.h"
 #include "Node.h"

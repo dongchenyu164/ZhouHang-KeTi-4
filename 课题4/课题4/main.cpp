@@ -213,20 +213,6 @@ void PushCalDirections(u8 Pos_X, u8 Pos_Y,u8 _Layer, MovingDirection _WhereAreYo
 {
 	Node* _NewNode = new Node();
 
-	//MovingDirection _Step[100];
-	//Node* _t=Father;
-	//u8 i = 0;
-	//while (_t->Pre!=nullptr)
-	//{
-	//	_Step[i] = _t->Move;
-	//	_t = _t->Pre;
-	//	i++;
-	//}
-	//while (i)
-	//{
-	//	MovingByDir(Pos_X, Pos_Y, _Step[--i]);
-	//}
-
 	switch (_WhereAreYouFrom)
 	{
 	case NONE:
@@ -262,9 +248,6 @@ void PushCalDirections(u8 Pos_X, u8 Pos_Y,u8 _Layer, MovingDirection _WhereAreYo
 	default:
 		break;
 	}
-	//Display();
-	//system("pause");
-	//system("cls");
 }
 bool Check(u8 Pos_X, u8 Pos_Y,u8 LimitOfLayer)
 {
@@ -282,9 +265,6 @@ bool Check(u8 Pos_X, u8 Pos_Y,u8 LimitOfLayer)
 			_t = _t->Pre;
 			i++;
 		}
-		//Display();
-		//system("cls");
-
 		MovingBySeqDir(Pos_X, Pos_Y,i,_Step);
 
 		//Display();
