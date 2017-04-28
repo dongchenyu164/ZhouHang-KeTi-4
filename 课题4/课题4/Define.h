@@ -1,7 +1,7 @@
 #pragma once
 #define _WORLDSIZE_Y_ 4
 #define _WORLDSIZE_X_ 4
-#define _DISTURB_STEP_ 50
+#define _DISTURB_STEP_ 14
 
 #include "Tree.h"
 #include "Node.h"
@@ -18,7 +18,7 @@ enum ValideDirection
 };
 enum MovingDirection
 {
-	NONE = 0, W, A, S, D
+	STOP = -1, NONE = 0, W, A, S, D
 };
 
 u8 InitialDir();

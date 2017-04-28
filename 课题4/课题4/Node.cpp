@@ -9,7 +9,7 @@ Node::Node(u8 _X=0,
 	u8 _Y=0,
 	u8 _Coast = 0,
 	bool _IsOpen = 0,
-	unsigned int _Layer = 0,
+	u8 _Layer = 0,
 	MovingDirection _Move = NONE,
 	Node* _Pre = nullptr)
 {
@@ -21,10 +21,7 @@ Node::Node(u8 _X=0,
 	this->Move = _Move;
 	this->Pre = _Pre;
 	this->NumOfNext = 0;
-	this->Next[0] = NULL;
-	this->Next[1] = NULL;
-	this->Next[2] = NULL;
-	this->Next[3] = NULL;
+	Self = this;
 }
 Node::Node()
 {
@@ -36,14 +33,11 @@ Node::Node()
 	this->Move = NONE;
 	this->Pre = NULL;
 	this->NumOfNext = 0;
-	this->Next[0] = NULL;
-	this->Next[1] = NULL;
-	this->Next[2] = NULL;
-	this->Next[3] = NULL;
 }
 
 bool Node::operator<(const Node& R)
 {
+	//return Coast < R.Coast;
 	if (Layer == R.Layer)
 		return Coast > R.Coast;
 	else
@@ -52,10 +46,7 @@ bool Node::operator<(const Node& R)
 
 bool operator<(const Node& L, const Node& R)
 {
-	//if (L->Layer == R->Layer)
-	//	return L->Coast > R->Coast;
-	//else
-	//	return L->Layer > R->Layer;
+	//return L.Coast < R.Coast;
 	if (L.Layer == R.Layer)
 		return L.Coast > R.Coast;
 	else
@@ -66,7 +57,7 @@ void Node::AddToNext(Node* _Node)
 {
 	if (NumOfNext < 4 && NumOfNext >= 0)
 	{
-		this->Next[NumOfNext] = _Node;
+		//this->Next[NumOfNext] = _Node;
 		NumOfNext++;
 	}
 }

@@ -1,10 +1,11 @@
 ﻿#include "Define.h"
 
-
-
 u8 Play[4][4] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
-ValideDirection VD[16] = { SD,ASD,ASD,AS,WSD,WASD,WASD,WAS,WSD,WASD,WASD,WAS,WD,WAD,WAD,WA };
-std::priority_queue<Node*> Finding;
+ValideDirection VD[16] = {	SD,		ASD,	ASD,	AS,
+							WSD,	WASD,	WASD,	WAS,
+							WSD,	WASD,	WASD,	WAS,
+							WD,		WAD,	WAD,	WA };
+std::priority_queue<Node> Finding;
 
 bool Diff[4][4];
 MovingDirection Dir_Initial[_DISTURB_STEP_];
@@ -42,7 +43,6 @@ MovingDirection GetRandomNum(u8 start=1, u8 range=4)
 }
 /// 检查从该位置出发，方向是否正确
 /// 是否会出4*4的范围
-/// 
 bool CheckValideDirection(u8* Pos_X, u8* Pos_Y, MovingDirection Dir, MovingDirection PreDir)
 {
 	switch (Dir)
@@ -118,8 +118,6 @@ u8 InitialDir()
 	return _Pos_Y * 4 + _Pos_X;
 }
 //Pos_X,Pos_Y:空位要移到的位置坐标(因为CheckValideDirection函数已经将原始坐标向相应位置 改变)
-
-
 
 /*********************************************************************/
 
@@ -212,7 +210,6 @@ void ReverseMovingBySeqDir(u8 Pos_X, u8 Pos_Y, MovingDirection Dir[])
 void PushCalDirections(u8 Pos_X, u8 Pos_Y,u8 _Layer, MovingDirection _WhereAreYouFrom,Node* Father)
 {
 	Node* _NewNode = new Node();
-
 	//MovingDirection _Step[100];
 	//Node* _t=Father;
 	//u8 i = 0;
@@ -234,29 +231,33 @@ void PushCalDirections(u8 Pos_X, u8 Pos_Y,u8 _Layer, MovingDirection _WhereAreYo
 	case W:
 		MovingByDir(Pos_X, Pos_Y, _WhereAreYouFrom);
 		*_NewNode = Node( Pos_X,Pos_Y - 1, CalCoast(), true, _Layer, _WhereAreYouFrom, Father );
-		Finding.push(_NewNode);
-		Father->AddToNext(_NewNode);
+		_NewNode->Self = _NewNode;
+		Finding.push(*_NewNode);
+		//Father->AddToNext(_NewNode);
 		MovingByDir(Pos_X, Pos_Y - 1, S);
 		break;
 	case A:
 		MovingByDir(Pos_X, Pos_Y, _WhereAreYouFrom);
 		*_NewNode = Node(Pos_X - 1,Pos_Y, CalCoast(), true, _Layer, _WhereAreYouFrom, Father);
-		Finding.push(_NewNode);
-		Father->AddToNext(_NewNode); 
+		_NewNode->Self = _NewNode;
+		Finding.push(*_NewNode);
+		//Father->AddToNext(_NewNode); 
 		MovingByDir(Pos_X - 1, Pos_Y, D);
 		break;
 	case S:
 		MovingByDir(Pos_X, Pos_Y, _WhereAreYouFrom);
 		*_NewNode = Node(Pos_X,Pos_Y + 1, CalCoast(), true, _Layer, _WhereAreYouFrom, Father);
-		Finding.push(_NewNode);
-		Father->AddToNext(_NewNode);
+		_NewNode->Self = _NewNode;
+		Finding.push(*_NewNode);
+		//Father->AddToNext(_NewNode);
 		MovingByDir(Pos_X, Pos_Y + 1, W);
 		break;
 	case D:
 		MovingByDir(Pos_X, Pos_Y, _WhereAreYouFrom);
 		*_NewNode = Node(Pos_X + 1,Pos_Y, CalCoast(), true, _Layer, _WhereAreYouFrom, Father);
-		Finding.push(_NewNode);
-		Father->AddToNext(_NewNode);
+		_NewNode->Self = _NewNode;
+		Finding.push(*_NewNode);
+		//Father->AddToNext(_NewNode);
 		MovingByDir(Pos_X + 1, Pos_Y, A);
 		break;
 	default:
@@ -282,6 +283,7 @@ bool Check(u8 Pos_X, u8 Pos_Y,u8 LimitOfLayer)
 			_t = _t->Pre;
 			i++;
 		}
+		_Step[i] = STOP;
 		//Display();
 		//system("cls");
 
@@ -498,35 +500,11 @@ bool Check(u8 Pos_X, u8 Pos_Y,u8 LimitOfLayer)
 			break;
 		}
 
-		/*while (_Step[i] > 0)
-		{
-			switch (_Step[i++])
-			{
-			case NONE:
-				break;
-			case W:
-				MovingByDir(_X, _Y, S);
-				break;
-			case A:
-				MovingByDir(_X, _Y, D);
-				break;
-			case S:
-				MovingByDir(_X, _Y, W);
-				break;
-			case D:
-				MovingByDir(_X, _Y, A);
-				break;
-			default:
-				break;
-			}
-			
-		}
-		*/
 		ReverseMovingBySeqDir(_X, _Y, _Step);
 
 		if (_NodeCur->Coast == 0)
 			break;
-		_NodeCur = (Finding.front());
+		_NodeCur = (Finding.top().Self);
 		Finding.pop();
 		_Layer = _NodeCur->Layer + 1;
 		_X = _NodeCur->X, _Y = _NodeCur->Y;

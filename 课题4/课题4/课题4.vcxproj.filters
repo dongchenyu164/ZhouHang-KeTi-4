@@ -18,27 +18,15 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PrioriQueue.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PrioriQueue.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
