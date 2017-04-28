@@ -272,6 +272,7 @@ bool Check(u8 Pos_X, u8 Pos_Y,u8 LimitOfLayer)
 	MovingDirection _WhereAreYouFrom = NONE;
 	u8 _Layer = 1,_X=Pos_X,_Y=Pos_Y;
 	Node* _NodeCur=&Root;
+	long long _ProgramCount = 0;
 	while (1)
 	{
 		MovingDirection _Step[100];
@@ -510,6 +511,7 @@ bool Check(u8 Pos_X, u8 Pos_Y,u8 LimitOfLayer)
 		_X = _NodeCur->X, _Y = _NodeCur->Y;
 		_WhereAreYouFrom = _NodeCur->Move;
 
+		_ProgramCount++;
 	}
 	
 	return true;
